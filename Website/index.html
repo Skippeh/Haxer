@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Haxer</title>
+
+	<link href="css/style.css" rel="stylesheet" />
+	<link href="css/trackpad-scroll-emulator.css" rel="stylesheet" />
+	
+	<script src="js/lib/jquery-1.10.2.js"></script>
+	<script src="js/lib/jquery.trackpad-scroll-emulator.js"></script>
+	<script src="js/globals.js"></script>
+	<script src="js/webconsole.js"></script>
+	
+	<!-- Packets -->
+	<script src="js/Packets/authenticate.js"></script>
+	<script src="js/Packets/write.js"></script>
+	<!-- End of packets -->
+
+	<script src="js/client.js"></script>
+	<script src="js/main.js"></script>
+	
+	<script>
+		$(main);
+	</script>
+</head>
+	<body>
+		<div class="tse-scrollable scrollwrapper" style="width:calc(100% - 0.313em); height:100%; position:absolute; padding: 0;" onclick="checkFocus()">
+			<div class="tse-content">
+				<span id="outputDiv" tabindex="-1"></span><span id="input"></span><span id="cursor" style="color: #FFF; font-size:0.8em; padding-top:1px;">＿</span>
+			</div>
+		</div>
+	</body>
+</html>

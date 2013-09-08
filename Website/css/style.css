@@ -1,0 +1,25 @@
+﻿@font-face
+{
+	font-family: consolefont;
+	src: url(../consolefont.ttf);
+}
+
+*
+{
+	font-family: consolefont, Consolas, monospace;
+	font-size: 100%;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+}
+
+.scrollwrapper
+{
+	padding: 0 0 0 0.313em;
+	position: absolute;
+	cursor: text;
+}
