@@ -23,7 +23,7 @@ namespace ServerCSharp
             Console.WriteLine(msg);
             Console.ResetColor();
 
-            var server = new Server("ws://192.168.1.200:45654");
+            var server = new Server("ws://home.skipcast.net:45654");
             server.Start();
 
             Console.CancelKeyPress += (sender, eventArgs) =>
