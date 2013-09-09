@@ -1,4 +1,4 @@
-namespace ServerCSharp
+namespace ServerCSharp.Packets
 {
     public abstract class Packet
     {
@@ -9,6 +9,11 @@ namespace ServerCSharp
         {
             Server = server;
             RequiredParameters = requiredParameters.Length > 0 ? requiredParameters : null;
+        }
+
+        protected Packet()
+        {
+            throw new System.NotImplementedException();
         }
 
         public abstract void Handle(Client client, Message message);

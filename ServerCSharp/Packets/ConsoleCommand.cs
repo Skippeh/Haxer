@@ -22,6 +22,7 @@ namespace ServerCSharp.Packets
             commands.Add("login", new Commands.Login(Server));
             commands.Add("logout", new Commands.Logout(Server));
             commands.Add("echo", new Commands.Echo(Server));
+            commands.Add("clear", new Commands.Clear(Server));
         }
 
         public override void Handle(Client client, Message message)
@@ -31,6 +32,11 @@ namespace ServerCSharp.Packets
             var cmdId = args.Take(1).ElementAt(0);
 
             client.SendWriteLine(command);
+
+            if (client.PendingReadKey != null || client.PendingReadLine !=  null)
+            {
+                client.Kick("You did not answer a read request.");
+            }
 
             if (!commands.ContainsKey(cmdId.ToLower()))
             {

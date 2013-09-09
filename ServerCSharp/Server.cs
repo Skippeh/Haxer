@@ -52,6 +52,8 @@ namespace ServerCSharp
         {
             packetHandlers.Add("auth", new Packets.AuthPacket(this));
             packetHandlers.Add("command", new Packets.ConsoleCommand(this));
+            packetHandlers.Add("readKey", new Packets.ReadKey(this));
+            packetHandlers.Add("readLine", new Packets.ReadLine(this));
         }
 
         public void HandleMessage(Client client, string message)
@@ -82,7 +84,7 @@ namespace ServerCSharp
 
             if (id != "auth" && !client.Authenticated)
             {
-                client.Kick("You are not authenticated, i can't allow you to do that dave.");
+                client.Kick("You are not authenticated, i can't allow you to do that bob.");
                 return;
             }
 

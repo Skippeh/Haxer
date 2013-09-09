@@ -15,6 +15,10 @@
 	{
 		this.packetHandlers["auth"] = new AuthenticatePacket();
 		this.packetHandlers["write"] = new WritePacket();
+		this.packetHandlers["setReadonly"] = new SetReadonlyPacket();
+		this.packetHandlers["readKey"] = new ReadKeyPacket();
+		this.packetHandlers["readLine"] = new ReadLinePacket();
+		this.packetHandlers["clear"] = new ClearPacket();
 	};
 
 	Client.prototype.connect = function(ip, port)
@@ -84,6 +88,7 @@
 	{
 		console.log("on close!");
 		this.connected = false;
+		webconsole.setReadonly(true);
 		
 		if (this.authenticated)
 		{
@@ -93,6 +98,7 @@
 		{
 			webconsole.writeLine("Could not connect to the server!", globals.fatalColor);
 		}
+		this.authenticated = false;
 	};
 	
 	return Client;

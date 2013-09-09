@@ -80,7 +80,13 @@
 				_this.reading = false;
 				_this.input = "";
 				$("#input").html("");
-				_this.writeLine(result);
+				
+				if (!intercept)
+					_this.writeLine(result);
+				else
+					_this.writeLine();
+				_this.intercept = false;
+				
 				callback(result);
 			}
 		};
@@ -108,7 +114,10 @@
 				_this.input = "";
 				_this.reading = false;
 			}
+			if (!intercept)
+				_this.writeLine(String.fromCharCode(event.charCode));
 			callback(event);
+			_this.intercept = false;
 		};
 
 		this.reading = true;
@@ -134,7 +143,11 @@
 		this.readonly = readonly;
 
 		if (readonly)
+		{
 			$("#cursor").css("opacity", 0);
+			this.input = "";
+			$("#input").html("");
+		}
 		else
 			$("#cursor").css("opacity", 1);
 	};

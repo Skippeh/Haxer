@@ -18,6 +18,7 @@
 		webconsole.writeLine("Authenticated with remote server!");
 		webconsole.clear();
 		webconsole.writeLine(message.motd + "\n");
+		webconsole.setReadonly(false);
 	};
 	
 	return AuthenticatePacket;

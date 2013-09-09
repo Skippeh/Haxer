@@ -9,6 +9,7 @@
 	});
 
 	window.webconsole = new WebConsole();
+	webconsole.setReadonly(true);
 	window.client = new Client();
 	client.connect(globals.serverIp, globals.serverPort);
 	
@@ -158,9 +159,7 @@ function startBlinkingCursor()
 function startFadingBackground()
 {
 	var color = getRandomColor();
-	console.log(color);
 	$("body").animate({ "background-color": color }, 20000);
-	
 	setTimeout(startFadingBackground, 20000);
 }
 
