@@ -13,12 +13,12 @@ namespace ServerCSharp.Commands
         {
             if (!client.IsLoggedIn())
             {
-                client.SendWriteLine("You are not logged in.", Globals.DenyColor);
+                client.WriteLine("You are not logged in.", Globals.DenyColor);
                 return;
             }
 
             client.Logout();
-            client.SendWriteLine("You are now logged out.", Globals.AcceptColor);
+            client.WriteLine("You are now logged out.", Globals.AcceptColor);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ServerCSharp.Commands
 
         public override void Handle(Client client, string command)
         {
-            client.SendWriteLine(JoinArg());
+            client.WriteLine(JoinArg());
         }
     }
 }

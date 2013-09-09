@@ -41,7 +41,7 @@ namespace ServerCSharp
             Console.WriteLine(Connection.IPString() + " sent: " + json);
         }
 
-        public void SendWrite(string text, string frontColor = null, string backColor = null)
+        public void Write(string text, string frontColor = null, string backColor = null)
         {
             Send("write", new Message("text", text,
                                       "endline", false,
@@ -49,7 +49,7 @@ namespace ServerCSharp
                                       "bcolor", backColor));
         }
 
-        public void SendWriteLine(string text, string frontColor = null, string backColor = null)
+        public void WriteLine(string text, string frontColor = null, string backColor = null)
         {
             Send("write", new Message("text", text,
                                       "endline", true,

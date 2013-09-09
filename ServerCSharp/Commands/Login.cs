@@ -13,19 +13,19 @@ namespace ServerCSharp.Commands
         {
             //if (Arguments.Length == 0)
             //{
-            //    client.SendWriteLine("Login to the specified account.\nUsage: login user password");
+            //    client.WriteLine("Login to the specified account.\nUsage: login user password");
             //    return;
             //}
             //
             //if (Arguments.Length < 2)
             //{
-            //    client.SendWriteLine("You need to specify both a username and a password.", Globals.DenyColor);
+            //    client.WriteLine("You need to specify both a username and a password.", Globals.DenyColor);
             //    return;
             //}
             //
             //if (client.IsLoggedIn())
             //{
-            //    client.SendWriteLine("You are already logged in. Please logout first.", Globals.DenyColor);
+            //    client.WriteLine("You are already logged in. Please logout first.", Globals.DenyColor);
             //    return;
             //}
             //
@@ -35,28 +35,28 @@ namespace ServerCSharp.Commands
             //Account account;
             //if (!Account.Exists(user) || !Account.TryLogin(user, password, out account))
             //{
-            //    client.SendWriteLine("Invalid username or password. Use the register command to register a new account.", Globals.DenyColor);
+            //    client.WriteLine("Invalid username or password. Use the register command to register a new account.", Globals.DenyColor);
             //    return;
             //}
             //
             //client.Account = account;
-            //client.SendWriteLine("Logged in as " + account.Username + ".", Globals.AcceptColor);
+            //client.WriteLine("Logged in as " + account.Username + ".", Globals.AcceptColor);
 
-            client.SendWrite("Username: ");
+            client.Write("Username: ");
             client.ReadLine(username =>
                             {
-                                client.SendWrite("Password: ");
+                                client.Write("Password: ");
                                 client.ReadLine(password =>
                                                 {
                                                     Account account;
                                                     if (!Account.Exists(username) || !Account.TryLogin(username, password, out account))
                                                     {
-                                                        client.SendWriteLine("Invalid username or password. Use the register command to register a new account.", Globals.DenyColor);
+                                                        client.WriteLine("Invalid username or password. Use the register command to register a new account.", Globals.DenyColor);
                                                         return;
                                                     }
 
                                                     client.Account = account;
-                                                    client.SendWriteLine("Logged in as " + account.Username + ".", Globals.AcceptColor);
+                                                    client.WriteLine("Logged in as " + account.Username + ".", Globals.AcceptColor);
                                                 }, true);
                             });
         }

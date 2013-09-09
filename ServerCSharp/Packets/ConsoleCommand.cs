@@ -31,7 +31,7 @@ namespace ServerCSharp.Packets
             var args = command.Split(' ');
             var cmdId = args.Take(1).ElementAt(0);
 
-            client.SendWriteLine(command);
+            client.WriteLine(command);
 
             if (client.PendingReadKey != null || client.PendingReadLine !=  null)
             {
@@ -40,7 +40,7 @@ namespace ServerCSharp.Packets
 
             if (!commands.ContainsKey(cmdId.ToLower()))
             {
-                client.SendWriteLine("Unknown command.", Globals.DenyColor);
+                client.WriteLine("Unknown command.", Globals.DenyColor);
                 return;
             }
 
