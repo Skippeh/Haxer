@@ -15,19 +15,30 @@
 	var input = $("#input");
 	$(document).keypress(function (event)
 	{
+		if (webconsole.readonly)
+			return false;
+		
 		var character = String.fromCharCode(event.keyCode);
 		switch(event.keyCode)
 		{
 			default:
 				{
-					input.html(input.html() + character);
+					webconsole.input += character;
+					if (!webconsole.intercept)
+					{
+						input.html(webconsole.input);
+					}
 					break;
 				}
 			case 13: // enter pressed
 				{
-					var inputText = input.html().trim();
+					if (webconsole.reading)
+						break;
+					
+					var inputText = webconsole.input.trim();
+					webconsole.input = "";
 					input.html("");
-					if (input.length != 0)
+					if (inputText.length != 0)
 					{
 						client.send("command", {"cmd": inputText});
 					}
@@ -51,10 +62,10 @@
 			{
 				var html = input.html();
 
-				if (html.length > 0)
-					html = html.substr(0, html.length - 1);
+				if (webconsole.input.length > 0)
+					webconsole.input = webconsole.input.substr(0, webconsole.input.length - 1);
 
-				input.html(html);
+				input.html(webconsole.input);
 			}
 			
 			return false;
@@ -71,7 +82,9 @@
 	focused = true;
 	$(window).focus(function()
 	{
-		$("#cursor").css("opacity", 1);
+		if (!webconsole.readonly)
+			$("#cursor").css("opacity", 1);
+		
 		focused = true;
 	});
 	$(window).blur(function()
@@ -80,11 +93,8 @@
 		focused = false;
 	});
 	
-	startBlinkingCursor();
-	
 	if (navigator.userAgent.toLowerCase().indexOf("mobile") != -1)
 	{
-		webconsole.writeLine("mobile");
 		$("*").css("font-size", "115%");
 		
 		$("body").append("<input type='text' id='mobileInput' style='left:-1000px;position:fixed;'></input>");
@@ -99,6 +109,10 @@
 			$(document).keypress(event);
 		});
 	}
+
+	startBlinkingCursor();
+	$("body").css("background-color", getRandomColor());
+	startFadingBackground();
 }
 
 function checkFocus()
@@ -120,6 +134,9 @@ function startBlinkingCursor()
 	var visible = true;
 	setInterval(function()
 	{
+		if (webconsole.readonly)
+			return;
+		
 		if (visible)
 		{
 			$("#cursor").animate({ opacity: 0 }, 60);
@@ -136,4 +153,21 @@ function startBlinkingCursor()
 			visible = true;
 		}
 	}, 530);
+}
+
+function startFadingBackground()
+{
+	var color = getRandomColor();
+	console.log(color);
+	$("body").animate({ "background-color": color }, 20000);
+	
+	setTimeout(startFadingBackground, 20000);
+}
+
+function getRandomColor()
+{
+	var r = Math.floor(Math.random() * 255 * 0.1);
+	var g = Math.floor(Math.random() * 255 * 0.1);
+	var b = Math.floor(Math.random() * 255 * 0.1);
+	return "rgb(" + r + "," + g + "," + b + ")";
 }
