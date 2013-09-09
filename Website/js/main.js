@@ -41,7 +41,7 @@
 					input.html("");
 					if (inputText.length != 0)
 					{
-						client.send("command", {"cmd": inputText});
+						client.send("command", { "cmd": inputText });
 					}
 					
 					break;
@@ -72,7 +72,7 @@
 			return false;
 		}
 		
-		if (event.ctrlKey && event.keyCode != 67) // control pressed and not c.
+		if (event.ctrlKey)
 		{
 			// CTRL + ? pressed.
 
@@ -110,6 +110,14 @@
 			$(document).keypress(event);
 		});
 	}
+	
+	$(document).bind("textselect", function(event, text, element)
+	{
+		if (text != "")
+		{
+			clipboardPrompt(text);
+		}
+	});
 
 	startBlinkingCursor();
 	$("body").css("background-color", getRandomColor());
@@ -169,4 +177,13 @@ function getRandomColor()
 	var g = Math.floor(Math.random() * 255 * 0.1);
 	var b = Math.floor(Math.random() * 255 * 0.1);
 	return "rgb(" + r + "," + g + "," + b + ")";
+}
+
+function clipboardPrompt(text)
+{
+	var left = (screen.width / 2) - (500 / 2);
+	var top = (screen.height / 2) - (300 / 2);
+
+	var w = window.open("clipboard.html?text=" + encodeURI(text), "Clipboard", "menubar=no,statusbar=no,toolbar=no,location=no,width=500px,height=300px,top=" + top + ",left=" + left);
+	w.focus();
 }

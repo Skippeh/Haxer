@@ -77,6 +77,7 @@
 			else
 			{
 				$(document).off("keypress", onKeyPress);
+				$(document).off("keydown", onKeyDown);
 				_this.reading = false;
 				_this.input = "";
 				$("#input").html("");
@@ -91,11 +92,24 @@
 			}
 		};
 		
+		var onKeyDown = function(event)
+		{
+			if (event.keyCode == 8)
+			{
+				if (result.length > 0)
+				{
+					result = result.substr(0, result.length - 1);
+					console.log(result);
+				}
+			}
+		};
+		
 		if (intercept)
 			this.intercept = true;
 
 		this.reading = true;
 		$(document).on("keypress", { _this: this }, onKeyPress);
+		$(document).on("keydown", { _this: this }, onKeyDown);
 	};
 	
 	this.readKey = function(callback, intercept, clear)

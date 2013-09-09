@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<script src="js/lib/jquery-1.10.2.js"></script>
+		<script>
+			function queryString(name, url)
+			{
+				if (url == undefined)
+					url = window.location.search;
+
+				name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+				var regexS = "[\\?&#]" + name + "=([^&#]*)";
+				var regex = new RegExp(regexS);
+				var results = regex.exec(url);
+				if (results == null)
+					return "";
+				else
+				{
+					var result = decodeURIComponent(results[1].replace(/\+/g, " "));
+					return result;
+				}
+			}
+
+			$(function()
+			{
+				$("#output").html(queryString("text"));
+				$("#output").select();
+
+				$(document).keydown(function(event)
+				{
+					console.log(event.keyCode + " - " + event.ctrlKey);
+					if ((event.keyCode == 67 && event.ctrlKey) || event.keyCode == 27)
+					{
+						window.close();
+					}
+				});
+				
+				$("#output").focus();
+			});
+		</script>
+	</head>
+<body style="padding: 0; margin: 0;">
+	<textarea id="output" style="width:calc(100% - 6px);height:calc(100% - 6px);position:absolute;"></textarea>
+</body>
+</html>
