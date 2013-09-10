@@ -31,8 +31,6 @@ namespace ServerCSharp.Packets
             var args = command.Split(' ');
             var cmdId = args.Take(1).ElementAt(0);
 
-            client.WriteLine(command);
-
             if (client.PendingReadKey != null || client.PendingReadLine !=  null)
             {
                 client.Kick("You did not answer a read request.");

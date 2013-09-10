@@ -10,11 +10,65 @@
 	this.intercept = false;
 	this.reading = false;
 	
-	for (var historyCommand in Cookies.get("history").split(/\n/g))
+	var cookieHistory = Cookies.get("history").split(/\n/g).reverse();
+	for (var index in cookieHistory)
 	{
-		this.history.push(historyCommand);
+		this.history.push(cookieHistory[index]);
 	}
-	this.historyPosition = this.history.length - 1;
+	this.historyPosition = -1;
+	
+	$(document).on("keydown", { _this: this }, function(event)
+	{
+		var _this = event.data._this;
+
+		if (event.keyCode == 38) // up arrow
+		{
+			var history = _this.getHistory(-1);
+			$("#input").html(history);
+			_this.input = history;
+
+			return false;
+		}
+
+		if (event.keyCode == 40) // down arrow
+		{
+			var history = _this.getHistory(1);
+			$("#input").html(history);
+			_this.input = history;
+
+			return false;
+		}
+	});
+	
+	this.getHistory = function(direction)
+	{
+		if (this.history.length == 0)
+			return "";
+		
+		if (direction == -1)
+		{
+			if (this.historyPosition + 1 < this.history.length)
+				this.historyPosition += 1;
+		}
+		else if (direction == 1)
+		{
+			if (this.historyPosition - 1 >= 0)
+				this.historyPosition -= 1;
+			else
+			{
+				this.historyPosition = -1;
+				return "";
+			}
+		}
+		
+		return this.history.slice()[this.historyPosition];
+	};
+	
+	this.addHistory = function(text)
+	{
+		this.history.push(text);
+		Cookies.set("history", Cookies.get("history") + "\n" + text);
+	};
 
 	this.writeLine = function (text, frontColor, backColor)
 	{
@@ -87,6 +141,9 @@
 				else
 					_this.writeLine();
 				_this.intercept = false;
+
+				if (!_this.readonly)
+					$("#inputPrefix").show();
 				
 				callback(result);
 			}
@@ -99,7 +156,6 @@
 				if (result.length > 0)
 				{
 					result = result.substr(0, result.length - 1);
-					console.log(result);
 				}
 			}
 		};
@@ -108,6 +164,7 @@
 			this.intercept = true;
 
 		this.reading = true;
+		$("#inputPrefix").hide();
 		$(document).on("keypress", { _this: this }, onKeyPress);
 		$(document).on("keydown", { _this: this }, onKeyDown);
 	};
@@ -159,10 +216,14 @@
 		if (readonly)
 		{
 			$("#cursor").css("opacity", 0);
+			$("#inputPrefix").hide();
 			this.input = "";
 			$("#input").html("");
 		}
 		else
+		{
 			$("#cursor").css("opacity", 1);
+			$("#inputPrefix").show();
+		}
 	};
 };

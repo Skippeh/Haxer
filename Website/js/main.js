@@ -39,9 +39,11 @@
 					var inputText = webconsole.input.trim();
 					webconsole.input = "";
 					input.html("");
+					webconsole.writeLine($("#inputPrefix").html() + inputText);
 					if (inputText.length != 0)
 					{
 						client.send("command", { "cmd": inputText });
+						webconsole.addHistory(inputText);
 					}
 					
 					break;
@@ -123,6 +125,8 @@
 	startBlinkingCursor();
 	$("body").css("background-color", getRandomColor());
 	startFadingBackground();
+	
+	main = undefined;
 }
 
 function checkFocus()

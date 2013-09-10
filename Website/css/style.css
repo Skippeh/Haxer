@@ -23,3 +23,8 @@ body
 	position: absolute;
 	cursor: text;
 }
+
+.input
+{
+	color: #C8C8C8;
+}
