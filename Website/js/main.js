@@ -66,7 +66,8 @@
 				if (webconsole.input.length > 0)
 					webconsole.input = webconsole.input.substr(0, webconsole.input.length - 1);
 
-				input.html(webconsole.input);
+				if (!webconsole.intercept)
+					input.html(webconsole.input);
 			}
 			
 			return false;
@@ -166,9 +167,9 @@ function startBlinkingCursor()
 
 function startFadingBackground()
 {
-	var color = getRandomColor();
-	$("body").animate({ "background-color": color }, 20000);
-	setTimeout(startFadingBackground, 20000);
+	//var color = getRandomColor();
+	//$("body").animate({ "background-color": color }, 20000);
+	//setTimeout(startFadingBackground, 20000);
 }
 
 function getRandomColor()
