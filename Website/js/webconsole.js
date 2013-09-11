@@ -66,7 +66,7 @@
 	
 	this.addHistory = function(text)
 	{
-		this.history.push(text);
+		this.history.unshift(text);
 		Cookies.set("history", Cookies.get("history") + "\n" + text);
 	};
 

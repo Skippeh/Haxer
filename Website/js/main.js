@@ -44,6 +44,7 @@
 					{
 						client.send("command", { "cmd": inputText });
 						webconsole.addHistory(inputText);
+						webconsole.historyPosition = -1;
 					}
 					
 					break;
