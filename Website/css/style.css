@@ -28,3 +28,10 @@ body
 {
 	color: #C8C8C8;
 }
+
+#output:focus,
+#inputPrefix:focus,
+#input:focus
+{
+	outline: none;
+}
